@@ -1,0 +1,46 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/libs/sentinel_shared"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps)"
+
+  - package-ecosystem: "pip"
+    directory: "/services/extraction-worker"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps)"
+
+  - package-ecosystem: "pip"
+    directory: "/services/api-gateway"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps)"
+
+  - package-ecosystem: "pip"
+    directory: "/services/recovery-engine"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps)"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(ci)"
+
+  - package-ecosystem: "docker"
+    directories:
+      - "/services/extraction-worker"
+      - "/services/api-gateway"
+      - "/services/recovery-engine"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(docker)"
