@@ -1,0 +1,119 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-typecheck:
+    name: Lint & type-check (${{ matrix.service.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        service:
+          - { name: shared, path: libs/sentinel_shared, package: sentinel_shared, src_dir: src/sentinel_shared }
+          - { name: extraction-worker, path: services/extraction-worker, package: extraction_worker, src_dir: src/extraction_worker }
+          - { name: api-gateway, path: services/api-gateway, package: api_gateway, src_dir: src/api_gateway }
+          - { name: recovery-engine, path: services/recovery-engine, package: recovery_engine, src_dir: src/recovery_engine }
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install shared kernel
+        run: pip install -e libs/sentinel_shared
+
+      - name: Install service dependencies
+        working-directory: ${{ matrix.service.path }}
+        run: |
+          [ -f requirements.txt ] && pip install -r requirements.txt || true
+          pip install -r ../../requirements-dev.txt
+
+      - name: Ruff
+        working-directory: ${{ matrix.service.path }}
+        run: ruff check ${{ matrix.service.src_dir }} tests/ --line-length 100
+
+      - name: MyPy (strict)
+        working-directory: ${{ matrix.service.path }}
+        run: mypy ${{ matrix.service.src_dir }}/ --strict --ignore-missing-imports
+
+  test:
+    name: Tests (${{ matrix.service }})
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U test"
+          --health-interval 5s --health-timeout 5s --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s --health-timeout 5s --health-retries 5
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [extraction-worker, api-gateway, recovery-engine]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install shared kernel
+        run: pip install -e libs/sentinel_shared
+
+      - name: Install service dependencies
+        working-directory: services/${{ matrix.service }}
+        run: |
+          pip install -r requirements.txt
+          pip install -r ../../requirements-dev.txt
+
+      - name: Install Playwright Chromium
+        if: matrix.service == 'extraction-worker'
+        run: playwright install --with-deps chromium
+
+      - name: Run tests
+        working-directory: services/${{ matrix.service }}
+        env:
+          PYTHONPATH: src
+          DATABASE_URL: "sqlite+aiosqlite:///:memory:"
+          REDIS_URL: "redis://localhost:6379/0"
+        run: pytest tests/ -v
+
+  contract-tests:
+    name: Cross-service contract tests
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install everything
+        run: |
+          pip install -e libs/sentinel_shared
+          pip install -r services/extraction-worker/requirements.txt
+          pip install -r services/api-gateway/requirements.txt
+          pip install -r services/recovery-engine/requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: Run contract tests
+        env:
+          PYTHONPATH: services/extraction-worker/src:services/api-gateway/src:services/recovery-engine/src
+        run: pytest tests/contract/ -v
