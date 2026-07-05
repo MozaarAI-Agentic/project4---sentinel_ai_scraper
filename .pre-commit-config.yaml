@@ -1,0 +1,25 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ["--maxkb=500"]
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.7.4
+    hooks:
+      - id: ruff
+        args: ["--line-length=100", "--fix"]
+      - id: ruff-format
+        args: ["--line-length=100"]
+
+# MyPy strict n'est volontairement PAS un hook pre-commit ici : il a
+# besoin des dépendances installées de chaque service (SQLAlchemy,
+# FastAPI, LangGraph...) pour résoudre les types correctement, ce qui est
+# plus fiable et plus rapide en CI (voir .github/workflows/ci.yml) qu'à
+# chaque commit local sur un environnement potentiellement incomplet.
