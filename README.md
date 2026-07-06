@@ -16,6 +16,12 @@
 
 </div>
 
+<div align="center">
+<img src="docs/assets/demo.gif" alt="SentinelAI Scraper — live demo: nominal extraction, a broken selector triggering AI recovery, and the LangGraph recovery loop closing the job" width="820" />
+
+<sub>Every line in this demo is real output from the actual system — a live API Gateway, a real Redis Streams queue, and the real Recovery Engine's `main.py` processing the job end-to-end.</sub>
+</div>
+
 ---
 
 ## Why this exists
