@@ -14,6 +14,7 @@ portfolio piece.
 - [x] ~~Activate real Claude Computer Use behind the existing `RecoveryEnginePort`~~ — done via `ClaudeVisionRecoveryEngine` (vision + structured output, not the literal Computer Use tool - see ADR-0016)
 - [x] ~~Contract tests between API Gateway ↔ Extraction Worker ↔ Recovery Engine~~ — done, `tests/contract/` (6 tests)
 - [x] ~~Rate limiting middleware on `POST /api/v1/jobs`~~ — done, Redis fixed-window limiter
+- [x] ~~Live public demo~~ — done, simplified single-container Hugging Face Space (see [ADR-0017](docs/adr/0017-huggingface-space-simplified-deployment.md))
 
 ## Mid-term (real engineering value)
 
