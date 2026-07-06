@@ -1,0 +1,5 @@
+# Hugging Face Space - additive to the core services' requirements.txt
+# files, which are installed separately in the Dockerfile (see ADR-0017).
+
+gradio>=4.0,<6.0
+httpx>=0.27,<1.0
