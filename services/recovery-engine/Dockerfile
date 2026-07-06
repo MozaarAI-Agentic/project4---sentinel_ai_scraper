@@ -8,7 +8,7 @@
 # traiter la queue - un piège facile à ne pas voir si on copie-colle le
 # Dockerfile d'un autre service sans réfléchir à sa vraie responsabilité.
 
-FROM python:3.12-slim AS builder
+FROM python:3.14-slim AS builder
 
 WORKDIR /build
 
@@ -19,7 +19,7 @@ COPY libs/sentinel_shared /build/libs/sentinel_shared
 RUN pip install --no-cache-dir --user /build/libs/sentinel_shared
 
 
-FROM python:3.12-slim AS runtime
+FROM python:3.14-slim AS runtime
 
 RUN groupadd --gid 1000 appuser \
     && useradd --uid 1000 --gid appuser --create-home appuser
