@@ -5,7 +5,7 @@
 # (Cycle 17) active Claude réel dès que ANTHROPIC_API_KEY est fourni,
 # remplaçant MockRecoveryEngine par défaut.
 
-fastapi>=0.115,<1.0
+fastapi>=0.139.0,<1.0
 uvicorn[standard]>=0.32,<1.0
 httpx>=0.27,<1.0
 redis>=5.0,<6.0
