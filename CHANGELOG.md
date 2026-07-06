@@ -2,13 +2,26 @@
 
 All notable changes to this project are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project
-will adopt [Semantic Versioning](https://semver.org/) starting with its
-first tagged release (see [ROADMAP.md](ROADMAP.md)).
+adopts [Semantic Versioning](https://semver.org/) starting with `v0.1.0`.
 
 ## [Unreleased]
 
-Everything below was built incrementally, TDD-first, across the MVP
-build. No version has been tagged yet — this is the state of `main`.
+Nothing yet - next up is real Docker validation in CI (see
+[ROADMAP.md](ROADMAP.md)) and, longer-term, the mid/long-term roadmap items.
+
+## [0.1.0] - 2026-07-06
+
+The first tagged release: a functionally complete MVP with all 13
+planned phases closed, 140 passing tests, and no undocumented technical
+debt.
+
+### Added (Phase 13 - GitHub Optimization)
+- GitHub Actions CI: lint (Ruff) + strict type-check (MyPy) across all 4 packages, tests with real Postgres/Redis services, cross-service contract tests
+- A second workflow (`docker-build.yml`) that builds and smoke-tests the full `docker compose` stack in CI - the real Docker validation this project's dev sandbox couldn't perform locally (see `docs/deployment/docker-guide.md`)
+- Issue templates (bug report, feature request), pull request template
+- Dependabot configuration across all Python packages, GitHub Actions, and Docker images
+- Pre-commit hooks (Ruff lint + format, basic hygiene checks)
+- A structured, chronological git history (29 commits) replacing what would otherwise have been a single flat commit
 
 ### Added
 
@@ -52,4 +65,5 @@ build. No version has been tagged yet — this is the state of `main`.
 - No Docker Compose / CI pipeline yet
 - Recovery queue can lose a message if the consumer crashes mid-processing (`BRPOP`, no ack)
 
-[Unreleased]: https://github.com/your-username/sentinelai-scraper/compare/main
+[Unreleased]: https://github.com/your-username/sentinelai-scraper/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/your-username/sentinelai-scraper/releases/tag/v0.1.0

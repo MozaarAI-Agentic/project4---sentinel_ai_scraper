@@ -172,7 +172,7 @@ I'd rather tell you what's not done than let you find out the hard way:
 
 - **Docker daemon runs, but image pulls don't.** Every Dockerfile and `docker-compose.yml` exist and were carefully reviewed, but this dev sandbox's network policy blocks Docker Hub — see [`docs/deployment/docker-guide.md`](docs/deployment/docker-guide.md) for the precise diagnosis.
 - **No authentication yet.** Deliberate MVP decision with compensating controls — rate limiting is now implemented (Redis fixed-window, 60 req/min), and network binding is restricted (see [ADR-0009](docs/adr/0009-no-authentication-mvp.md)).
-- **No CI/CD pipeline yet.** Tests pass consistently locally (140 across the monorepo), but nothing's automated on push yet.
+- **CI/CD is now in place.** GitHub Actions runs lint, strict type-check, and all 140 tests on every push, plus a dedicated workflow that actually builds and smoke-tests the full Docker Compose stack — the real Docker validation this dev sandbox couldn't perform locally.
 - **The recovery queue's `reclaim_stale_messages()` isn't scheduled automatically** — it exists and is tested, but something (a cron, a periodic task) needs to call it after a crash for stale messages to actually be reclaimed.
 - **Claude's real API pricing is hardcoded as an approximation** in `ClaudeVisionRecoveryEngine` — needs manual updates if Anthropic's pricing changes; documented in [ADR-0016](docs/adr/0016-claude-vision-not-computer-use.md).
 
@@ -182,12 +182,15 @@ None of this is hidden in the code — it's called out in the ADRs and docs at t
 
 ## Roadmap
 
-- [ ] Dockerize all three services + `docker-compose.yml`
-- [ ] GitHub Actions CI (lint, type-check, test on every push)
-- [ ] Activate real Claude Computer Use behind the existing `RecoveryEnginePort`
-- [ ] Contract tests between services (the JSON contracts are documented as identical — never verified automatically)
-- [ ] OpenTelemetry trace propagation across the async recovery path
-- [ ] Redis Streams migration for the recovery queue (removes the current at-most-once delivery limitation)
+- [x] ~~Dockerize all three services + `docker-compose.yml`~~ — written and statically validated; real `docker build`/`up` now runs in CI (see `.github/workflows/docker-build.yml`) since this dev sandbox's network policy blocks Docker Hub
+- [x] ~~GitHub Actions CI (lint, type-check, test on every push)~~ — done, plus a dedicated Docker smoke-test workflow
+- [x] ~~Activate real Claude Computer Use behind the existing `RecoveryEnginePort`~~ — done via vision + structured output (see [ADR-0016](docs/adr/0016-claude-vision-not-computer-use.md))
+- [x] ~~Contract tests between services~~ — done, `tests/contract/`
+- [ ] API Key or OAuth2 authentication, replacing the current no-auth MVP posture
+- [ ] Real OTLP exporter (Jaeger/Tempo) replacing the default console span exporter
+- [ ] Scheduled `reclaim_stale_messages()` invocation for the Redis Streams recovery queue
+
+See [ROADMAP.md](ROADMAP.md) for the full near/mid/long-term breakdown.
 
 ## Contributing
 
