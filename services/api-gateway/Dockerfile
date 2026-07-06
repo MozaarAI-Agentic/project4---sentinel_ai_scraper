@@ -5,7 +5,7 @@
 # proprement d'une étape à l'autre, donc l'optimisation de taille d'image
 # est directement applicable ici, sans les mêmes réserves.
 
-FROM python:3.12-slim AS builder
+FROM python:3.14-slim AS builder
 
 WORKDIR /build
 
@@ -16,7 +16,7 @@ COPY libs/sentinel_shared /build/libs/sentinel_shared
 RUN pip install --no-cache-dir --user /build/libs/sentinel_shared
 
 
-FROM python:3.12-slim AS runtime
+FROM python:3.14-slim AS runtime
 
 RUN groupadd --gid 1000 appuser \
     && useradd --uid 1000 --gid appuser --create-home appuser
