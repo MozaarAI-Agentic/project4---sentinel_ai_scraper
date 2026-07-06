@@ -8,7 +8,7 @@
 # Optimisation multi-stage identifiée en ROADMAP.md, à valider contre un
 # vrai daemon Docker avant d'être appliquée.
 
-FROM python:3.12-slim
+FROM python:3.14-slim
 
 ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright \
     PYTHONUNBUFFERED=1 \
