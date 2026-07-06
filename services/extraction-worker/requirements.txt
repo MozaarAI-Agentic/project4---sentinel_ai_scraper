@@ -7,7 +7,7 @@
 # in the Dockerfile (COPY + pip install), since a relative path here would
 # be fragile depending on where pip is invoked during the build.
 
-fastapi>=0.115,<1.0
+fastapi>=0.139.0,<1.0
 uvicorn[standard]>=0.32,<1.0
 playwright>=1.48,<2.0
 redis>=5.0,<6.0
