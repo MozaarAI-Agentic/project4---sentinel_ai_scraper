@@ -109,7 +109,7 @@ with gr.Blocks(title="SentinelAI Scraper — Live Demo") as demo:
         step only fires after a **confirmed** deterministic failure —
         never before, and it never writes to the database directly.
 
-        [Full source, architecture, and 17 ADRs on GitHub](https://github.com/your-username/sentinelai-scraper)
+        [Full source, architecture, and 17 ADRs on GitHub](https://github.com/MozaarAI-Agentic/project4---sentinel_ai_scraper)
         """
     )
 

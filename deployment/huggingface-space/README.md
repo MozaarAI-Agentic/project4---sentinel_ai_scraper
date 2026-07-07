@@ -12,7 +12,7 @@ license: mit
 # SentinelAI Scraper — Live Demo
 
 This Space runs a **deliberately simplified** version of
-[SentinelAI Scraper](https://github.com/your-username/sentinelai-scraper):
+[SentinelAI Scraper](https://github.com/MozaarAI-Agentic/project4---sentinel_ai_scraper):
 a deterministic-first web extraction platform where Playwright does the
 work and an AI recovery step only fires after a confirmed deterministic
 failure.
@@ -24,7 +24,7 @@ here. This Space packs all three microservices into one container with
 SQLite instead of PostgreSQL, and a curated local fixture for the guided
 demo instead of an arbitrary live site (so it's reproducible for every
 visitor, not dependent on some external site's uptime). The full
-reasoning is in [ADR-0017](https://github.com/your-username/sentinelai-scraper/blob/main/docs/adr/0017-huggingface-space-simplified-deployment.md).
+reasoning is in [ADR-0017](https://github.com/MozaarAI-Agentic/project4---sentinel_ai_scraper/blob/main/docs/adr/0017-huggingface-space-simplified-deployment.md).
 
 ## About the AI recovery step
 
@@ -41,4 +41,4 @@ switches to the real `ClaudeVisionRecoveryEngine` from the core codebase
 - **Try your own URL** tab: runs the real deterministic pipeline against
   any site you provide
 
-[Full source, 17 ADRs, 140 tests, and the real production architecture on GitHub](https://github.com/your-username/sentinelai-scraper)
+[Full source, 17 ADRs, 140 tests, and the real production architecture on GitHub](https://github.com/MozaarAI-Agentic/project4---sentinel_ai_scraper)

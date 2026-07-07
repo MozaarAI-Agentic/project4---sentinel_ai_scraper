@@ -65,5 +65,5 @@ debt.
 - No Docker Compose / CI pipeline yet
 - Recovery queue can lose a message if the consumer crashes mid-processing (`BRPOP`, no ack)
 
-[Unreleased]: https://github.com/your-username/sentinelai-scraper/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/your-username/sentinelai-scraper/releases/tag/v0.1.0
+[Unreleased]: https://github.com/MozaarAI-Agentic/project4---sentinel_ai_scraper/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/MozaarAI-Agentic/project4---sentinel_ai_scraper/releases/tag/v0.1.0

@@ -13,7 +13,7 @@
 [![Tests](https://img.shields.io/badge/tests-140%20passing-brightgreen)](#testing)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey)](#license)
 [![Status](https://img.shields.io/badge/status-MVP%20complete-orange)](#current-status--honest-limitations)
-[![Hugging Face Space](https://img.shields.io/badge/🤗%20Hugging%20Face-Live%20Demo-yellow)](https://huggingface.co/spaces/your-username/sentinelai-scraper-demo)
+[![Hugging Face Space](https://img.shields.io/badge/🤗%20Hugging%20Face-Live%20Demo-yellow)](https://huggingface.co/spaces/Mozaar/sentinel_ai_scraper)
 
 </div>
 
@@ -22,7 +22,7 @@
 
 <sub>Every line in this demo is real output from the actual system — a live API Gateway, a real Redis Streams queue, and the real Recovery Engine's `main.py` processing the job end-to-end.</sub>
 
-**[Try it live on Hugging Face Spaces](https://huggingface.co/spaces/your-username/sentinelai-scraper-demo)** — a simplified single-container version of this same system (real Playwright, real Redis Streams, real recovery loop). See [ADR-0017](docs/adr/0017-huggingface-space-simplified-deployment.md) for exactly what's simplified and why.
+**[Try it live on Hugging Face Spaces](https://huggingface.co/spaces/Mozaar/sentinel_ai_scraper)** — a simplified single-container version of this same system (real Playwright, real Redis Streams, real recovery loop). See [ADR-0017](docs/adr/0017-huggingface-space-simplified-deployment.md) for exactly what's simplified and why.
 </div>
 
 ---
